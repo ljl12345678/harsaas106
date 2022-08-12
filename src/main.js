@@ -12,16 +12,29 @@ import App from './App'
 import store from './store'
 import router from './router'
 
+import * as directives from '@/directives'
+import * as filters from '@/filters'
 import '@/icons' // icon
 import '@/permission' // permission control
-
+import Component from '@/components/index'
+import Print from 'vue-print-nb'
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
-    // 如果想要中文版 element-ui，按如下方式声明
+Vue.use({
+        Print
+    })
+    // 祖册自定义指令
+Object.keys(directives).forEach(key => {
+    Vue.directive(key, directives[key])
+})
+Object.keys(filters).forEach(key => {
+        Vue.filter(key, filters[key])
+    })
+    // 如果想要中文版element-ui按如下方式声明
     // Vue.use(ElementUI)
-
+    // console.log(directives)
 Vue.config.productionTip = false
-
+Vue.use(Component)
 new Vue({
     el: '#app',
     router,
